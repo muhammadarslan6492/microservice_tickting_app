@@ -41,7 +41,7 @@ router.post(
         id: existingUser.id,
         email: existingUser.email,
       },
-      "adafdsf"
+      process.env.JWT_KEY!
     );
 
     // Store it on session object
