@@ -1,45 +1,23 @@
-import express from 'express';
-import 'express-async-errors';
-import { json } from 'body-parser';
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-import { currentUserRouter } from './routes/current-user';
-import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
-import { signupRouter } from './routes/signup';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-error';
+import { app } from "./app";
 
-const app = express();
-app.use(json());
+const start = async () => {
+  // if (!process.env.JWT_KEY) {
+  //   throw new Error("JWT_KEY must be defined");
+  // }
 
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
-
-app.all('*', async (req, res) => {
-  throw new NotFoundError();
-});
-
-app.use(errorHandler);
-
-const start = () => {
   try {
-    mongoose
-      .connect('mongodb://localhost/newauth')
-      .then(() => {
-        console.log('database is connected');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await mongoose.connect(
+      "mongodb+srv://muhammadarslan:vjTs9wzRrFuWUBBU@cluster0.uxxcz.mongodb.net/?retryWrites=true&w=majority"
+    );
+    console.log("Connected to MongoDb");
   } catch (err) {
     console.error(err);
   }
 
   app.listen(3000, () => {
-    console.log('Listening on port 3000!!!!!!!!');
+    console.log("Listening on port 3000!!!!!!!!");
   });
 };
 
