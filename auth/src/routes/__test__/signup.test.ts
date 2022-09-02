@@ -2,7 +2,7 @@ import request from "supertest";
 
 import { app } from "../../app";
 
-it("returns a 201 on successfull login", async () => {
+it("returns a 201 on successfull login by user", async () => {
   return request(app)
     .post("/api/users/signup")
     .send({
