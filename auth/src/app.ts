@@ -3,6 +3,7 @@ import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import { config } from "dotenv";
+import cors from "cors";
 
 config();
 
@@ -22,6 +23,8 @@ app.use(
     secure: false,
   })
 );
+
+app.use(cors());
 
 app.use(currentUserRouter);
 app.use(signinRouter);
